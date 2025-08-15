@@ -27,9 +27,11 @@ jobs:
       - name: Install deps
         run: npm ci
 
+      # IMPORTANTE: base = /telefone-operadora-brasil/
       - name: Build (base=/telefone-operadora-brasil/)
         run: npm run build -- --base=/telefone-operadora-brasil/
 
+      # SPA fallback: resolve 404 de rotas
       - name: SPA fallback (copy index -> 404)
         run: cp dist/index.html dist/404.html
 
