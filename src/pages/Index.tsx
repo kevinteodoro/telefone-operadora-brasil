@@ -1,10 +1,12 @@
-import { useEffect } from "react";
-import { Phone, Search, Clock, Info } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Phone, Search, Clock, Info, X } from "lucide-react";
 import { OperatorCard } from "@/components/OperatorCard";
 import { SEOSchema } from "@/components/SEOSchema";
 import { operators } from "@/data/operators";
 
 const Index = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  
   useEffect(() => {
     // Set document title and meta description for SEO
     document.title = "Telefones das Operadoras de Internet no Brasil | SAC e Suporte 2024";
@@ -13,6 +15,15 @@ const Index = () => {
       metaDescription.setAttribute('content', '📞 Todos os telefones das operadoras de internet: Vivo, Claro, TIM, Oi, Algar. SAC, suporte técnico, vendas e cancelamento. Números atualizados 2024.');
     }
   }, []);
+
+  // Filter operators based on search term
+  const filteredOperators = operators.filter(operator =>
+    operator.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const clearSearch = () => {
+    setSearchTerm("");
+  };
 
   return (
     <>
@@ -82,26 +93,87 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Operators List */}
+        {/* Search and Operators List */}
         <main className="container mx-auto px-4 pb-12">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-foreground mb-2" id="operadoras">
               Telefones das Operadoras por Tipo de Atendimento
             </h2>
-            <p className="text-muted-foreground mb-8">
+            <p className="text-muted-foreground mb-6">
               Clique nos números abaixo para ligar diretamente da sua operadora de internet.
             </p>
             
-            <div className="grid gap-8">
-              {operators.map((operator, index) => (
-                <OperatorCard
-                  key={index}
-                  name={operator.name}
-                  brand={operator.brand}
-                  numbers={operator.numbers}
-                  color={operator.color}
+            {/* Search Bar */}
+            <div className="relative mb-8">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <input
+                  type="text"
+                  placeholder="Buscar operadora (ex: Vivo, Claro, TIM...)"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-10 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  aria-label="Buscar operadora de internet"
                 />
-              ))}
+                {searchTerm && (
+                  <button
+                    onClick={clearSearch}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground hover:text-foreground transition-colors"
+                    aria-label="Limpar busca"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                )}
+              </div>
+              
+              {searchTerm && (
+                <div className="mt-2 text-sm text-muted-foreground">
+                  {filteredOperators.length > 0 
+                    ? `Encontradas ${filteredOperators.length} operadora(s) para "${searchTerm}"`
+                    : `Nenhuma operadora encontrada para "${searchTerm}"`
+                  }
+                </div>
+              )}
+            </div>
+            
+            <div className="grid gap-8">
+              {filteredOperators.length > 0 ? (
+                filteredOperators.map((operator, index) => (
+                  <OperatorCard
+                    key={index}
+                    name={operator.name}
+                    brand={operator.brand}
+                    numbers={operator.numbers}
+                    color={operator.color}
+                  />
+                ))
+              ) : searchTerm ? (
+                <div className="text-center py-12">
+                  <Search className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-foreground mb-2">
+                    Nenhuma operadora encontrada
+                  </h3>
+                  <p className="text-muted-foreground mb-4">
+                    Não encontramos nenhuma operadora com o termo "{searchTerm}".
+                  </p>
+                  <button
+                    onClick={clearSearch}
+                    className="text-primary hover:text-primary/80 transition-colors font-medium"
+                  >
+                    Limpar busca e ver todas as operadoras
+                  </button>
+                </div>
+              ) : (
+                operators.map((operator, index) => (
+                  <OperatorCard
+                    key={index}
+                    name={operator.name}
+                    brand={operator.brand}
+                    numbers={operator.numbers}
+                    color={operator.color}
+                  />
+                ))
+              )}
             </div>
           </div>
         </main>
