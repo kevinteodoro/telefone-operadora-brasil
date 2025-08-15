@@ -1,4 +1,4 @@
-name: Deploy Vite site to GitHub Pages (repo URL)
+name: Deploy Vite site to GitHub Pages
 
 on:
   push:
@@ -27,12 +27,10 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      # IMPORTANTE: base = /telefone-operadora-brasil/
-      - name: Build (base=/telefone-operadora-brasil/)
-        run: npm run build -- --base=/telefone-operadora-brasil/
+      - name: Build
+        run: npm run build
 
-      # SPA fallback: resolve 404 de rotas
-      - name: SPA fallback (copy index -> 404)
+      - name: SPA fallback (React Router)
         run: cp dist/index.html dist/404.html
 
       - name: Upload artifact
