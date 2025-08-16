@@ -61,7 +61,12 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				vivo: 'hsl(var(--vivo))',
+				claro: 'hsl(var(--claro))',
+				tim: 'hsl(var(--tim))',
+				oi: 'hsl(var(--oi))',
+				algar: 'hsl(var(--algar))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

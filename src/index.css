@@ -39,20 +39,20 @@ All colors MUST be HSL.
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Operator colors */
+    --vivo: 158 100% 35%;
+    --claro: 0 84% 52%;
+    --tim: 245 100% 50%;
+    --oi: 45 100% 50%;
+    --algar: 210 100% 40%;
   }
 
   .dark {
@@ -91,6 +91,13 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Operator colors for dark mode */
+    --vivo: 158 80% 45%;
+    --claro: 0 70% 60%;
+    --tim: 245 85% 65%;
+    --oi: 45 85% 60%;
+    --algar: 210 85% 55%;
   }
 }
 
